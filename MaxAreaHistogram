@@ -1,0 +1,29 @@
+package stack;
+import java.util.Stack;
+public class MaxAreaHistogram {
+	public void MaxHistogram(int[] arr) {
+		Stack<Integer> values=new Stack<>();
+		Stack<Integer> index=new Stack<>();
+		int MaxArea=0;
+		for(int i=0;i<arr.length;i++) {
+			while(!index.empty() && arr[index.peek()]>arr[i]) {
+				int element=values.peek();
+				index.pop();
+				values.pop();
+				int nse=i;
+				int pse= index.empty()? -1:index.peek();
+				MaxArea=Math.max(element*(nse-pse-1), MaxArea);
+			}
+			index.push(i);
+			values.push(arr[i]);
+		}
+		System.out.println("Maximum area ="+ MaxArea);
+	}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int[] arr= {3,2,10,11,5,6,3};
+		MaxAreaHistogram MAH=new MaxAreaHistogram();
+		MAH.MaxHistogram(arr);
+	}
+
+}
